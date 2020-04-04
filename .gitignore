@@ -5,6 +5,7 @@ bin
 .metadata
 .classpath
 .project
+classes
 
 # idea
 out
@@ -16,7 +17,13 @@ out
 # gradle
 build
 .gradle
+gradle
 
 # other
 eclipse
 run
+LICENSE.txt
+LICENSE-Paulscode SoundSystem CodecIBXM.txt
+LICENSE-Paulscode IBXM Library.txt
+CREDITS.txt
+changelog.txt
