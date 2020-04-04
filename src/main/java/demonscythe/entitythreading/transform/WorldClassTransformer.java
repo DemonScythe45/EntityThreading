@@ -1,4 +1,4 @@
-package demonscythe.transform;
+package demonscythe.entitythreading.transform;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;

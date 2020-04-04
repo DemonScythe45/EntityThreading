@@ -1,4 +1,4 @@
-package demonscythe.schedule;
+package demonscythe.entitythreading.schedule;
 
 import java.util.concurrent.Callable;
 

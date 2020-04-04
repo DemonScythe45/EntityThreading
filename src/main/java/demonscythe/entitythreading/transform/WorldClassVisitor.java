@@ -1,4 +1,4 @@
-package demonscythe.transform;
+package demonscythe.entitythreading.transform;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;

@@ -1,4 +1,4 @@
-package demonscythe;
+package demonscythe.entitythreading;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
@@ -9,12 +9,12 @@ public class ThreaderLoadingPlugin implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
         System.out.println("ASM transformer class requested");
-        return new String[] {"demonscythe.transform.WorldClassTransformer"};
+        return new String[] {"demonscythe.entitythreading.transform.WorldClassTransformer"};
     }
 
     @Override
     public String getModContainerClass() {
-        return "demonscythe.ThreaderContainer";
+        return "demonscythe.entitythreading.ThreaderContainer";
     }
 
     @Nullable

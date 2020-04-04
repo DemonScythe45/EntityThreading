@@ -1,4 +1,4 @@
-package demonscythe.transform;
+package demonscythe.entitythreading.transform;
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -25,7 +25,7 @@ public class WorldMethodTransformer extends MethodVisitor {
     public void visitVarInsn(int opcode, int var) {
         //System.out.println("VARINS: " + opcode + " " + var);
         if (addBlockMethod) {
-            super.visitMethodInsn(Opcodes.INVOKESTATIC, "demonscythe/schedule/EntityTickScheduler", "waitForFinish", "()V", false);
+            super.visitMethodInsn(Opcodes.INVOKESTATIC, "demonscythe/entitythreading/schedule/EntityTickScheduler", "waitForFinish", "()V", false);
             addBlockMethod = false;
         }
         super.visitVarInsn(opcode, var);
@@ -59,7 +59,7 @@ public class WorldMethodTransformer extends MethodVisitor {
                         (desc.equals("(Lvg;)V"))
         ) {
             System.out.println("Found method to replace!");
-            super.visitMethodInsn(Opcodes.INVOKESTATIC, "demonscythe/schedule/EntityTickScheduler", "queueEntity", "(Lamu;Lvg;)V", false);
+            super.visitMethodInsn(Opcodes.INVOKESTATIC, "demonscythe/entitythreading/schedule/EntityTickScheduler", "queueEntity", "(Lamu;Lvg;)V", false);
             updatedReference = true;
         }else{
             super.visitMethodInsn(opcode,  owner, name, desc, itf);

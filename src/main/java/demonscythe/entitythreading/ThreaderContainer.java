@@ -1,4 +1,4 @@
-package demonscythe;
+package demonscythe.entitythreading;
 
 import com.google.common.eventbus.EventBus;
 import net.minecraftforge.fml.common.DummyModContainer;

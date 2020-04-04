@@ -1,4 +1,4 @@
-package demonscythe.schedule;
+package demonscythe.entitythreading.schedule;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
