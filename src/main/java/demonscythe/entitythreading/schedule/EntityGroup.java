@@ -12,7 +12,7 @@ public class EntityGroup {
     private int ticksUnused;
     private World tickIn;
     private boolean isTicking;
-    ArrayList<Entity> toTick;
+    private ArrayList<Entity> toTick;
 
     public EntityGroup(int x, int z, World toTickIn) {
         regionx = x;
@@ -47,11 +47,11 @@ public class EntityGroup {
         if (isTicking && toTick.isEmpty()) {
             EntityTickScheduler.groupRunnables.remove(tickRunnable);
             isTicking = false;
-        }else if (!isTicking && !toTick.isEmpty()) {
+        } else if (!isTicking && !toTick.isEmpty()) {
             EntityTickScheduler.groupRunnables.add(tickRunnable);
             ticksUnused = 0;
             isTicking = true;
-        }else if (!isTicking) {
+        } else if (!isTicking) {
             ticksUnused++;
         }
     }

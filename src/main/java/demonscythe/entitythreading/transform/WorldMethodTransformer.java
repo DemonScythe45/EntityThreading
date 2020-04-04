@@ -32,11 +32,10 @@ public class WorldMethodTransformer extends MethodVisitor {
     }
 
     /**
-    @Override
-    public void visitLdcInsn(Object cst) {
-        System.out.println("Constant: " + cst);
-        super.visitLdcInsn(cst);
-    }
+     * @Override public void visitLdcInsn(Object cst) {
+     * System.out.println("Constant: " + cst);
+     * super.visitLdcInsn(cst);
+     * }
      **/
 
     @Override
@@ -51,8 +50,8 @@ public class WorldMethodTransformer extends MethodVisitor {
             if (!updatedReference) {
                 System.out.println("Found the first timing tracker!");
             }
-            super.visitMethodInsn(opcode,  owner, name, desc, itf);
-        }else if (
+            super.visitMethodInsn(opcode, owner, name, desc, itf);
+        } else if (
                 (opcode == Opcodes.INVOKEVIRTUAL) &&
                         (owner.equals("amu")) &&
                         (name.equals("h")) &&
@@ -61,8 +60,8 @@ public class WorldMethodTransformer extends MethodVisitor {
             System.out.println("Found method to replace!");
             super.visitMethodInsn(Opcodes.INVOKESTATIC, "demonscythe/entitythreading/schedule/EntityTickScheduler", "queueEntity", "(Lamu;Lvg;)V", false);
             updatedReference = true;
-        }else{
-            super.visitMethodInsn(opcode,  owner, name, desc, itf);
+        } else {
+            super.visitMethodInsn(opcode, owner, name, desc, itf);
         }
     }
 }
