@@ -14,4 +14,8 @@ public class GroupTickRunnable implements Callable<Boolean> {
         toTick.runTick();
         return false;
     }
+
+    public boolean isGroupEmpty() {
+        return toTick.toTick.isEmpty();
+    }
 }

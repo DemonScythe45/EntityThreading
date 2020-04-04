@@ -9,8 +9,9 @@ import java.util.concurrent.*;
 
 public class EntityTickScheduler {
     private static ArrayList<EntityGroup> groups = new ArrayList<>();
-    private static ArrayList<Callable<Boolean>> groupRunnables = new ArrayList<>();
-    private static ExecutorService service = Executors.newFixedThreadPool(6);
+    private static ArrayList<EntityGroup> groupRemoveList = new ArrayList<>();
+    public static ArrayList<GroupTickRunnable> groupRunnables = new ArrayList<>();
+    private static ExecutorService service = Executors.newFixedThreadPool(12);
 
     public static void queueEntity(World world, Entity toUpdate) {
         //System.out.println("Entity queued!" + toUpdate.getName() + " From world: " + world);
@@ -23,27 +24,29 @@ public class EntityTickScheduler {
             }
         }
         if (!added) {
-            EntityGroup group = new EntityGroup((toUpdate.chunkCoordX  >> 5), (toUpdate.chunkCoordZ  >> 5), world);
+            EntityGroup group = new EntityGroup(toUpdate.chunkCoordX, toUpdate.chunkCoordZ, world);
             group.addEntity(toUpdate);
             groups.add(group);
-            groupRunnables.add(group.tickRunnable);
         }
     }
 
     public static void waitForFinish() {
-        System.out.println("Groups Ticking" + groups.size());
-        System.out.println("Runnables: " + groupRunnables.size());
+        //System.out.println("Groups Ticking" + groups.size());
+        //System.out.println("Runnables: " + groupRunnables.size());
+
         for (EntityGroup groupVar : groups) {
-            if (groupVar.isEmpty()) groupRunnables.remove(groupVar.tickRunnable);
+            groupVar.manageRunnable();
+            if (groupVar.removeGroup()) groupRemoveList.add(groupVar);
         }
-        groups.removeIf(EntityGroup::isEmpty);
+        if (!groupRemoveList.isEmpty()) {
+            groups.removeAll(groupRemoveList);
+            //System.out.println("Removing " + groupRemoveList.size() + " unused groups!");
+            groupRemoveList.clear();
+        }
 
         try {
             List<Future<Boolean>> futures = service.invokeAll(groupRunnables);
-            for (Future<Boolean> future : futures) {
-                future.get();
-            }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
