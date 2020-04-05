@@ -77,7 +77,7 @@ processResources {
 }
 
 def commonManifest = {
-    attributes 'FMLCorePlugin': 'demonscythe.ThreaderLoadingPlugin'
+    attributes 'FMLCorePlugin': 'demonscythe.entitythreading.ThreaderLoadingPlugin'
 }
 
 jar {
